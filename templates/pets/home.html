@@ -1,0 +1,1312 @@
+{% extends 'base.html' %}
+
+{% block title %}
+PetSafeQR - Smart Pet Identification & Recovery System
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    /* =====================================
+       HOME PAGE
+    ===================================== */
+
+    .home-page {
+        overflow: hidden;
+        background: #f7f9fc;
+    }
+
+
+    /* =====================================
+       HERO SECTION
+    ===================================== */
+
+    .hero-section {
+        min-height: 650px;
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        padding: 80px 20px;
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 10% 20%,
+                rgba(13, 110, 253, 0.12),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 90% 80%,
+                rgba(25, 135, 84, 0.12),
+                transparent 30%
+            ),
+            #f7f9fc;
+    }
+
+
+    /* =====================================
+       DECORATIVE CIRCLES
+    ===================================== */
+
+    .circle {
+        position: absolute;
+
+        border-radius: 50%;
+
+        pointer-events: none;
+
+        opacity: 0.45;
+    }
+
+
+    .circle-one {
+        width: 280px;
+        height: 280px;
+
+        top: -100px;
+        left: -100px;
+
+        background: rgba(13, 110, 253, 0.08);
+
+        animation: circleMove 7s ease-in-out infinite;
+    }
+
+
+    .circle-two {
+        width: 350px;
+        height: 350px;
+
+        right: -140px;
+        bottom: -150px;
+
+        background: rgba(25, 135, 84, 0.08);
+
+        animation: circleMove 9s ease-in-out infinite reverse;
+    }
+
+
+    @keyframes circleMove {
+
+        0%,
+        100% {
+            transform: translate(0, 0);
+        }
+
+        50% {
+            transform: translate(20px, -20px);
+        }
+    }
+
+
+    /* =====================================
+       MOVING PETS
+    ===================================== */
+
+    .floating-pets {
+        position: absolute;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        overflow: hidden;
+    }
+
+
+    .floating-pet {
+        position: absolute;
+
+        font-size: 60px;
+
+        filter:
+            drop-shadow(
+                0 12px 8px rgba(0, 0, 0, 0.15)
+            );
+
+        animation:
+            petFloat 4s ease-in-out infinite;
+    }
+
+
+    .pet-one {
+        top: 12%;
+        left: 5%;
+
+        animation-delay: 0s;
+    }
+
+
+    .pet-two {
+        top: 18%;
+        right: 7%;
+
+        animation-delay: 1s;
+    }
+
+
+    .pet-three {
+        bottom: 13%;
+        left: 8%;
+
+        animation-delay: 2s;
+    }
+
+
+    .pet-four {
+        bottom: 18%;
+        right: 8%;
+
+        animation-delay: 3s;
+    }
+
+
+    @keyframes petFloat {
+
+        0%,
+        100% {
+            transform:
+                translateY(0)
+                rotate(-5deg);
+        }
+
+        50% {
+            transform:
+                translateY(-28px)
+                rotate(5deg);
+        }
+    }
+
+
+    /* =====================================
+       HERO CONTENT
+    ===================================== */
+
+    .hero-content {
+        position: relative;
+
+        z-index: 5;
+
+        max-width: 850px;
+
+        margin: auto;
+
+        text-align: center;
+    }
+
+
+    .hero-badge {
+        display: inline-block;
+
+        padding: 8px 18px;
+
+        margin-bottom: 22px;
+
+        border-radius: 50px;
+
+        background: rgba(13, 110, 253, 0.09);
+
+        color: #0d6efd;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        letter-spacing: 0.3px;
+    }
+
+
+    .hero-title {
+        margin-bottom: 22px;
+
+        color: #172033;
+
+        font-size:
+            clamp(42px, 7vw, 76px);
+
+        line-height: 1.05;
+
+        font-weight: 900;
+
+        letter-spacing: -3px;
+    }
+
+
+    .hero-title span {
+        color: #0d6efd;
+    }
+
+
+    .hero-description {
+        max-width: 720px;
+
+        margin:
+            0 auto 25px;
+
+        color: #667085;
+
+        font-size: 18px;
+
+        line-height: 1.8;
+    }
+
+
+    /* =====================================
+       INTRO BOX
+    ===================================== */
+
+    .intro-box {
+        max-width: 720px;
+
+        margin:
+            0 auto 32px;
+
+        padding: 22px 25px;
+
+        text-align: left;
+
+        background:
+            rgba(255, 255, 255, 0.85);
+
+        border-left:
+            4px solid #0d6efd;
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(0, 0, 0, 0.05);
+
+        color: #475467;
+
+        font-size: 14px;
+
+        line-height: 1.8;
+    }
+
+
+    .intro-box strong {
+        color: #172033;
+    }
+
+
+    /* =====================================
+       BUTTONS
+    ===================================== */
+
+    .hero-buttons {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .hero-btn {
+        min-width: 175px;
+
+        padding: 13px 24px;
+
+        border-radius: 12px;
+
+        text-decoration: none;
+
+        font-weight: 700;
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+
+    .hero-btn:hover {
+        transform:
+            translateY(-4px);
+    }
+
+
+    .hero-btn-primary {
+        color: #ffffff;
+
+        background: #0d6efd;
+
+        box-shadow:
+            0 10px 25px
+            rgba(13, 110, 253, 0.25);
+    }
+
+
+    .hero-btn-primary:hover {
+        color: #ffffff;
+
+        box-shadow:
+            0 15px 30px
+            rgba(13, 110, 253, 0.35);
+    }
+
+
+    .hero-btn-secondary {
+        color: #344054;
+
+        background: #ffffff;
+
+        border:
+            1px solid #d0d5dd;
+    }
+
+
+    .hero-btn-secondary:hover {
+        color: #0d6efd;
+
+        box-shadow:
+            0 10px 25px
+            rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =====================================
+       FEATURES
+    ===================================== */
+
+    .features-section {
+        padding:
+            90px 20px;
+
+        background: #ffffff;
+    }
+
+
+    .section-title {
+        margin-bottom: 12px;
+
+        text-align: center;
+
+        color: #172033;
+
+        font-size: 36px;
+
+        font-weight: 850;
+    }
+
+
+    .section-description {
+        max-width: 650px;
+
+        margin:
+            0 auto 50px;
+
+        text-align: center;
+
+        color: #667085;
+
+        line-height: 1.7;
+    }
+
+
+    .feature-card {
+        height: 100%;
+
+        padding: 30px;
+
+        background: #ffffff;
+
+        border:
+            1px solid #eaecf0;
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(0, 0, 0, 0.05);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+
+    .feature-card:hover {
+        transform:
+            translateY(-8px);
+
+        box-shadow:
+            0 20px 40px
+            rgba(0, 0, 0, 0.09);
+    }
+
+
+    .feature-icon {
+        width: 62px;
+        height: 62px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 20px;
+
+        border-radius: 16px;
+
+        background: #eef5ff;
+
+        font-size: 31px;
+    }
+
+
+    .feature-title {
+        margin-bottom: 10px;
+
+        color: #172033;
+
+        font-size: 20px;
+
+        font-weight: 750;
+    }
+
+
+    .feature-text {
+        margin: 0;
+
+        color: #667085;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =====================================
+       HOW IT WORKS
+    ===================================== */
+
+    .how-section {
+        padding:
+            90px 20px;
+
+        background: #f7f9fc;
+    }
+
+
+    .step-card {
+        padding: 20px;
+
+        text-align: center;
+    }
+
+
+    .step-number {
+        width: 58px;
+        height: 58px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        margin:
+            0 auto 18px;
+
+        border-radius: 50%;
+
+        background: #0d6efd;
+
+        color: #ffffff;
+
+        font-size: 20px;
+
+        font-weight: 800;
+
+        box-shadow:
+            0 8px 20px
+            rgba(13, 110, 253, 0.2);
+    }
+
+
+    .step-title {
+        margin-bottom: 8px;
+
+        color: #172033;
+
+        font-weight: 750;
+    }
+
+
+    .step-text {
+        color: #667085;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =====================================
+       SAFETY SECTION
+    ===================================== */
+
+    .safety-section {
+        padding:
+            90px 20px;
+
+        background: #ffffff;
+    }
+
+
+    .safety-box {
+        padding:
+            45px 35px;
+
+        border-radius: 24px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #eef5ff,
+                #f5faff
+            );
+
+        border:
+            1px solid #dbeafe;
+
+        text-align: center;
+    }
+
+
+    .safety-icon {
+        font-size: 55px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .safety-title {
+        color: #172033;
+
+        font-size: 30px;
+
+        font-weight: 850;
+
+        margin-bottom: 15px;
+    }
+
+
+    .safety-text {
+        max-width: 700px;
+
+        margin:
+            0 auto;
+
+        color: #667085;
+
+        line-height: 1.8;
+    }
+
+
+    /* =====================================
+       CTA
+    ===================================== */
+
+    .cta-section {
+        padding:
+            90px 20px;
+
+        text-align: center;
+
+        color: #ffffff;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0d6efd,
+                #063b91
+            );
+    }
+
+
+    .cta-title {
+        margin-bottom: 15px;
+
+        font-size: 40px;
+
+        font-weight: 850;
+    }
+
+
+    .cta-text {
+        max-width: 650px;
+
+        margin:
+            0 auto 28px;
+
+        line-height: 1.7;
+
+        opacity: 0.9;
+    }
+
+
+    .cta-btn {
+        display: inline-block;
+
+        padding:
+            13px 30px;
+
+        border-radius: 12px;
+
+        background: #ffffff;
+
+        color: #0d6efd;
+
+        text-decoration: none;
+
+        font-weight: 750;
+
+        transition: 0.25s ease;
+    }
+
+
+    .cta-btn:hover {
+        color: #084298;
+
+        transform:
+            translateY(-4px);
+
+        box-shadow:
+            0 12px 25px
+            rgba(0, 0, 0, 0.15);
+    }
+
+
+    /* =====================================
+       MOBILE
+    ===================================== */
+
+    @media (max-width: 767px) {
+
+        .hero-section {
+            min-height: 650px;
+
+            padding:
+                70px 18px;
+        }
+
+
+        .hero-title {
+            letter-spacing: -1.5px;
+        }
+
+
+        .hero-description {
+            font-size: 16px;
+        }
+
+
+        .floating-pet {
+            font-size: 38px;
+        }
+
+
+        .intro-box {
+            text-align: center;
+
+            border-left: none;
+
+            border-top:
+                3px solid #0d6efd;
+        }
+
+
+        .section-title {
+            font-size: 30px;
+        }
+
+
+        .safety-title {
+            font-size: 27px;
+        }
+
+
+        .cta-title {
+            font-size: 30px;
+        }
+
+    }
+
+</style>
+
+<div class="home-page">
+
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<section class="hero-section">
+
+
+    <!-- Decorative circles -->
+
+    <div class="circle circle-one"></div>
+
+    <div class="circle circle-two"></div>
+
+
+    <!-- Floating pets -->
+
+    <div class="floating-pets">
+
+        <div class="floating-pet pet-one">
+            🐕
+        </div>
+
+        <div class="floating-pet pet-two">
+            🐈
+        </div>
+
+        <div class="floating-pet pet-three">
+            🐇
+        </div>
+
+        <div class="floating-pet pet-four">
+            🐦
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="hero-content">
+
+
+            <div class="hero-badge">
+
+                🐾 Smart Pet Safety System
+
+            </div>
+
+
+            <h1 class="hero-title">
+
+                Protect Your
+                <br>
+
+                <span>Best Friend</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Welcome to
+                <strong>PetSafeQR</strong> —
+                a smart pet identification and
+                recovery system designed to help
+                keep your beloved pets safe.
+
+            </p>
+
+
+            <div class="intro-box">
+
+                <strong>PetSafeQR</strong> gives every
+                registered pet a unique digital identity.
+
+                <br><br>
+
+                Store important pet information,
+                generate a unique QR code, and attach
+                the QR tag to your pet's collar.
+
+                <br><br>
+
+                If your pet goes missing, the QR code
+                helps a finder access the appropriate
+                information and contact the owner.
+
+            </div>
+
+
+            <div class="hero-buttons">
+
+
+                {% if user.is_authenticated %}
+
+                    <a
+                        href="{% url 'dashboard' %}"
+                        class="hero-btn hero-btn-primary"
+                    >
+                        🐾 Go to Dashboard
+                    </a>
+
+
+                    <a
+                        href="{% url 'add_pet' %}"
+                        class="hero-btn hero-btn-secondary"
+                    >
+                        ➕ Add Pet
+                    </a>
+
+
+                {% else %}
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="hero-btn hero-btn-primary"
+                    >
+                        🐾 Get Started
+                    </a>
+
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="hero-btn hero-btn-secondary"
+                    >
+                        🔐 Login
+                    </a>
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     FEATURES
+===================================== -->
+
+<section class="features-section">
+
+    <div class="container">
+
+
+        <h2 class="section-title">
+
+            Everything Your Pet Needs
+
+        </h2>
+
+
+        <p class="section-description">
+
+            PetSafeQR makes pet identification simple,
+            smart, and convenient.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- Card 1 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🐾
+                    </div>
+
+                    <h3 class="feature-title">
+                        Register Your Pet
+                    </h3>
+
+                    <p class="feature-text">
+
+                        Add your pet's name, type,
+                        breed, gender, color,
+                        identification details,
+                        and photo.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 2 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📱
+                    </div>
+
+                    <h3 class="feature-title">
+                        Unique QR Code
+                    </h3>
+
+                    <p class="feature-text">
+
+                        Every pet receives a unique
+                        QR code that can be attached
+                        to a collar or pet tag.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 3 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🚨
+                    </div>
+
+                    <h3 class="feature-title">
+                        Missing Mode
+                    </h3>
+
+                    <p class="feature-text">
+
+                        If your pet is missing,
+                        change the pet status to
+                        Missing from your dashboard.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 4 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        👤
+                    </div>
+
+                    <h3 class="feature-title">
+                        Owner Details
+                    </h3>
+
+                    <p class="feature-text">
+
+                        When required, appropriate
+                        owner contact information can
+                        help a finder return your pet.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 5 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🔐
+                    </div>
+
+                    <h3 class="feature-title">
+                        Privacy Focused
+                    </h3>
+
+                    <p class="feature-text">
+
+                        Your pet's information can be
+                        managed from your secure owner
+                        account.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Card 6 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ❤️
+                    </div>
+
+                    <h3 class="feature-title">
+                        Peace of Mind
+                    </h3>
+
+                    <p class="feature-text">
+
+                        Keep your pet's important
+                        identification information
+                        available when it matters.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     HOW IT WORKS
+===================================== -->
+
+<section class="how-section">
+
+    <div class="container">
+
+
+        <h2 class="section-title">
+
+            How PetSafeQR Works
+
+        </h2>
+
+
+        <p class="section-description">
+
+            Protect your pet in four simple steps.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h4 class="step-title">
+                        Create Account
+                    </h4>
+
+                    <p class="step-text">
+
+                        Create your PetSafeQR
+                        owner account.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h4 class="step-title">
+                        Register Pet
+                    </h4>
+
+                    <p class="step-text">
+
+                        Add your pet's important
+                        details and photo.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h4 class="step-title">
+                        Get QR
+                    </h4>
+
+                    <p class="step-text">
+
+                        Generate and download your
+                        pet's unique QR code.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <h4 class="step-title">
+                        Stay Protected
+                    </h4>
+
+                    <p class="step-text">
+
+                        Attach the QR tag to your
+                        pet's collar.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     SAFETY SECTION
+===================================== -->
+
+<section class="safety-section">
+
+    <div class="container">
+
+
+        <div class="safety-box">
+
+
+            <div class="safety-icon">
+                🛡️🐾
+            </div>
+
+
+            <h2 class="safety-title">
+
+                Your Pet's Safety Matters
+
+            </h2>
+
+
+            <p class="safety-text">
+
+                Pets are family.
+
+                PetSafeQR provides a simple digital
+                identity for your pet so important
+                information is easier to access when
+                you need it.
+
+                <br><br>
+
+                Register your pet today and keep their
+                information ready for the unexpected.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     CTA
+===================================== -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+
+        <h2 class="cta-title">
+
+            Ready to Protect Your Pet? 🐾
+
+        </h2>
+
+
+        <p class="cta-text">
+
+            Create your PetSafeQR account and give
+            your pet a smart digital identity.
+
+        </p>
+
+
+        {% if user.is_authenticated %}
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="cta-btn"
+            >
+                📊 Open Dashboard
+            </a>
+
+        {% else %}
+
+            <a
+                href="{% url 'register' %}"
+                class="cta-btn"
+            >
+                🐾 Register Your Pet
+            </a>
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}

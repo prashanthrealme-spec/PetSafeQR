@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Pet - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<div class="row justify-content-center">
+
+    <div class="col-md-8 col-lg-7">
+
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body p-4 p-md-5">
+
+                <!-- Header -->
+
+                <div class="text-center mb-4">
+
+                    <div style="font-size: 55px;">
+                        🐾
+                    </div>
+
+                    <h2 class="fw-bold">
+                        Register Your Pet
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Add your pet to PetSafe QR
+                    </p>
+
+                </div>
+
+
+                <!-- General Errors -->
+
+                {% if form.non_field_errors %}
+
+                    <div class="alert alert-danger">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- Pet Name -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Pet Name
+                        </label>
+
+                        {{ form.name }}
+
+                        {% for error in form.name.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Pet Type -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Pet Type
+                        </label>
+
+                        {{ form.pet_type }}
+
+                        {% for error in form.pet_type.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Breed -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Breed
+                        </label>
+
+                        {{ form.breed }}
+
+                        {% for error in form.breed.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Date of Birth -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Date of Birth
+                        </label>
+
+                        {{ form.date_of_birth }}
+
+                        {% for error in form.date_of_birth.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Gender -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Gender
+                        </label>
+
+                        {{ form.gender }}
+
+                        {% for error in form.gender.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Color -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Color
+                        </label>
+
+                        {{ form.color }}
+
+                        {% for error in form.color.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Identification -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Identification Details
+                        </label>
+
+                        {{ form.identification_details }}
+
+                        <div class="form-text">
+
+                            Example: white mark on chest,
+                            blue collar, unique spot, etc.
+
+                        </div>
+
+                        {% for error in form.identification_details.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Photo -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Pet Photo
+                        </label>
+
+                        {{ form.photo }}
+
+                        <div class="form-text">
+                            JPG, PNG or WEBP • Maximum 5 MB
+                        </div>
+
+                        {% for error in form.photo.errors %}
+
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- Buttons -->
+
+                    <div class="d-flex gap-2">
+
+                        <a
+                            href="{% url 'dashboard' %}"
+                            class="btn btn-secondary"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary flex-grow-1"
+                        >
+                            🐾 Register Pet
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% endblock %}

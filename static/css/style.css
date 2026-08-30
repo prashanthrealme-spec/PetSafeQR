@@ -1,0 +1,72 @@
+body {
+    min-height: 100vh;
+}
+
+.hero {
+    background: #f5f7fa;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+.petsafe-bottom {
+padding: 30px 20px;
+text-align: center;
+background: #101828;
+color: #ffffff;
+}
+
+.petsafe-tagline {
+font-size: 14px;
+font-weight: 600;
+color: #d0d5dd;
+margin-bottom: 18px;
+}
+
+.petsafe-credit {
+font-size: 13px;
+line-height: 1.8;
+color: #98a2b3;
+}
+
+.petsafe-credit strong {
+color: #ffffff;
+}
+
+.petsafe-name {
+margin-top: 12px;
+font-size: 22px;
+font-weight: 800;
+}
+
+.petsafe-copyright {
+margin-top: 10px;
+font-size: 12px;
+color: #667085;
+}
+
+@media (max-width: 576px) {
+
+
+.petsafe-bottom {
+    padding: 25px 15px;
+}
+
+.petsafe-tagline {
+    font-size: 13px;
+}
+
+.petsafe-credit {
+    font-size: 12px;
+}
+
+.petsafe-name {
+    font-size: 20px;
+}
+}

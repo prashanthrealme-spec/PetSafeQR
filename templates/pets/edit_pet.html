@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit {{ pet.name }} - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card p-4">
+
+                <h2 class="text-center mb-4">
+                    ✏️ Edit {{ pet.name }}
+                </h2>
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <div class="d-flex gap-2">
+
+                        <a
+                            href="{% url 'pet_detail' pet.pet_id %}"
+                            class="btn btn-secondary"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary flex-grow-1"
+                        >
+                            💾 Save Changes
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

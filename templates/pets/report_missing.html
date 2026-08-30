@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Report {{ pet.name }} as Missing - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body p-4 text-center">
+
+                    <!-- Icon -->
+
+                    <div style="font-size: 70px;">
+                        🚨
+                    </div>
+
+                    <h2 class="fw-bold mt-3">
+                        Report {{ pet.name }} as Missing?
+                    </h2>
+
+                    <p class="text-muted mt-3">
+                        Are you sure that
+                        <strong>{{ pet.name }}</strong>
+                        is missing?
+                    </p>
+
+
+                    <!-- Warning -->
+
+                    <div class="alert alert-warning text-start mt-4">
+
+                        <strong>
+                            ⚠️ Important
+                        </strong>
+
+                        <p class="mb-0 mt-2">
+                            Once you report this pet as missing,
+                            anyone who scans its PetSafe QR code
+                            will be able to see the owner's
+                            contact information.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Pet -->
+
+                    <div class="border rounded p-3 mt-4">
+
+                        {% if pet.photo %}
+
+                            <img
+                                src="{{ pet.photo.url }}"
+                                alt="{{ pet.name }}"
+                                class="rounded-circle"
+                                style="
+                                    width: 100px;
+                                    height: 100px;
+                                    object-fit: cover;
+                                "
+                            >
+
+                        {% else %}
+
+                            <div style="font-size: 70px;">
+                                🐾
+                            </div>
+
+                        {% endif %}
+
+                        <h4 class="mt-2">
+                            {{ pet.name }}
+                        </h4>
+
+                        <p class="text-muted mb-0">
+                            {{ pet.get_pet_type_display }}
+
+                            {% if pet.breed %}
+                                • {{ pet.breed }}
+                            {% endif %}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+
+                    <form
+                        method="POST"
+                        class="mt-4"
+                    >
+
+                        {% csrf_token %}
+
+                        <div class="d-flex gap-2">
+
+                            <a
+                                href="{% url 'pet_detail' pet.pet_id %}"
+                                class="btn btn-secondary w-50"
+                            >
+                                Cancel
+                            </a>
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger w-50"
+                            >
+                                🚨 Confirm Missing
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <p class="text-muted small mt-4 mb-0">
+
+                        You can mark the pet as safe again
+                        after it is found.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

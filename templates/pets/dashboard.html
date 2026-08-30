@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<!-- Header -->
+
+<div class="d-flex
+            justify-content-between
+            align-items-center
+            mb-4">
+
+    <div>
+
+        <h2 class="fw-bold mb-1">
+            🐾 My Pets
+        </h2>
+
+        <p class="text-muted mb-0">
+            Welcome, {{ user.first_name|default:user.username }}
+        </p>
+
+    </div>
+
+
+    <a
+        href="{% url 'add_pet' %}"
+        class="btn btn-primary"
+    >
+        ➕ Add Pet
+    </a>
+
+</div>
+
+
+<!-- Pet Count -->
+
+<div class="alert alert-light border mb-4">
+
+    <strong>
+        {{ pets|length }}
+    </strong>
+
+    {% if pets|length == 1 %}
+        pet registered
+    {% else %}
+        pets registered
+    {% endif %}
+
+</div>
+
+
+{% if pets %}
+
+    <div class="row g-4">
+
+        {% for pet in pets %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card h-100 shadow-sm border-0">
+
+
+                    <!-- Photo -->
+
+                    {% if pet.photo %}
+
+                        <img
+                            src="{{ pet.photo.url }}"
+                            alt="{{ pet.name }}"
+                            style="
+                                width: 100%;
+                                height: 230px;
+                                object-fit: cover;
+                            "
+                        >
+
+                    {% else %}
+
+                        <div
+                            class="bg-light d-flex
+                                   justify-content-center
+                                   align-items-center"
+                            style="
+                                height: 230px;
+                                font-size: 80px;
+                            "
+                        >
+                            🐾
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="card-body p-4">
+
+
+                        <!-- Name + Status -->
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <h4 class="fw-bold mb-0">
+                                {{ pet.name }}
+                            </h4>
+
+
+                            {% if pet.status == 'MISSING' %}
+
+                                <span class="badge bg-danger">
+                                    🚨 Missing
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+                                    🟢 Safe
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Basic Info -->
+
+                        <p class="text-muted mt-2 mb-3">
+
+                            {{ pet.get_pet_type_display }}
+
+                            {% if pet.breed %}
+                                • {{ pet.breed }}
+                            {% endif %}
+
+                        </p>
+
+
+                        <div class="small text-muted mb-3">
+
+                            🎨 {{ pet.color }}
+
+                            {% if pet.gender %}
+                                <br>
+                                ⚧ {{ pet.get_gender_display }}
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- View -->
+
+                        <a
+                            href="{% url 'pet_detail' pet.pet_id %}"
+                            class="btn btn-primary w-100 mb-2"
+                        >
+                            👀 View Pet
+                        </a>
+
+
+                        <!-- QR -->
+
+                        <a
+                            href="{% url 'qr_tag' pet.pet_id %}"
+                            class="btn btn-outline-success w-100 mb-2"
+                        >
+                            📱 View QR
+                        </a>
+
+
+                        <!-- Status Action -->
+
+                        {% if pet.status == 'SAFE' %}
+
+                            <a
+                                href="{% url 'report_missing' pet.pet_id %}"
+                                class="btn btn-outline-danger w-100"
+                            >
+                                🚨 Report Missing
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'mark_safe' pet.pet_id %}"
+                                class="btn btn-outline-success w-100"
+                            >
+                                ✅ Mark as Safe
+                            </a>
+
+                        {% endif %}
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+{% else %}
+
+    <!-- No Pets -->
+
+    <div class="text-center py-5">
+
+        <div style="font-size: 90px;">
+            🐾
+        </div>
+
+        <h3 class="fw-bold mt-3">
+            No Pets Registered
+        </h3>
+
+        <p class="text-muted">
+            Add your first pet and generate
+            a PetSafe QR code.
+        </p>
+
+        <a
+            href="{% url 'add_pet' %}"
+            class="btn btn-primary"
+        >
+            ➕ Add Your First Pet
+        </a>
+
+    </div>
+
+{% endif %}
+```
+
+</div>
+
+{% endblock %}

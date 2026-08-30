@@ -1,0 +1,768 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    /* =========================
+       LOGIN PAGE
+       ========================= */
+
+    .login-page {
+
+        min-height: calc(100vh - 70px);
+
+        position: relative;
+
+        overflow: hidden;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        padding: 40px 20px;
+
+        background:
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(13, 110, 253, 0.14),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(25, 135, 84, 0.12),
+                transparent 30%
+            ),
+            #f5f8fc;
+    }
+
+
+    /* =========================
+       ANIMATION AREA
+       ========================= */
+
+    .pet-animation-area {
+
+        position: absolute;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        overflow: hidden;
+
+        perspective: 1000px;
+    }
+
+
+    /* =========================
+       COMMON PET
+       ========================= */
+
+    .animated-pet {
+
+        position: absolute;
+
+        z-index: 1;
+
+        font-size: 55px;
+
+        filter:
+            drop-shadow(
+                0 12px 8px rgba(0, 0, 0, 0.18)
+            );
+
+        transform-style: preserve-3d;
+
+        will-change: transform;
+
+        user-select: none;
+    }
+
+
+    /* =========================
+       DOG
+       ========================= */
+
+    .pet-dog {
+
+        top: 12%;
+
+        left: -100px;
+
+        animation:
+            dogMove 16s linear infinite,
+            petFloat 1.4s ease-in-out infinite;
+    }
+
+
+    @keyframes dogMove {
+
+        0% {
+            left: -100px;
+            transform:
+                translateZ(0)
+                rotateY(0deg)
+                scale(1);
+        }
+
+        45% {
+            transform:
+                translateZ(80px)
+                rotateY(10deg)
+                scale(1.12);
+        }
+
+        50% {
+            left: 48%;
+            transform:
+                translateZ(100px)
+                rotateY(0deg)
+                scale(1.15);
+        }
+
+        100% {
+            left: 110%;
+            transform:
+                translateZ(0)
+                rotateY(0deg)
+                scale(1);
+        }
+    }
+
+
+    /* =========================
+       CAT
+       ========================= */
+
+    .pet-cat {
+
+        top: 65%;
+
+        right: -100px;
+
+        animation:
+            catMove 18s linear infinite;
+
+        animation-delay: 2s;
+    }
+
+
+    @keyframes catMove {
+
+        0% {
+            right: -100px;
+
+            transform:
+                translateZ(0)
+                rotateY(180deg)
+                rotateZ(0deg)
+                scale(1);
+        }
+
+        40% {
+            transform:
+                translateZ(70px)
+                rotateY(180deg)
+                rotateZ(-5deg)
+                scale(1.1);
+        }
+
+        50% {
+            right: 48%;
+
+            transform:
+                translateZ(100px)
+                rotateY(180deg)
+                rotateZ(5deg)
+                scale(1.15);
+        }
+
+        100% {
+            right: 110%;
+
+            transform:
+                translateZ(0)
+                rotateY(180deg)
+                rotateZ(0deg)
+                scale(1);
+        }
+    }
+
+
+    /* =========================
+       BIRD
+       ========================= */
+
+    .pet-bird {
+
+        top: 25%;
+
+        right: -80px;
+
+        font-size: 48px;
+
+        animation:
+            birdMove 13s linear infinite,
+            birdFloat 1.2s ease-in-out infinite;
+    }
+
+
+    @keyframes birdMove {
+
+        0% {
+            right: -80px;
+
+            transform:
+                translate3d(0, 0, 0)
+                rotateY(180deg);
+        }
+
+        25% {
+            transform:
+                translate3d(-25vw, -50px, 100px)
+                rotateY(180deg)
+                rotateZ(-8deg);
+        }
+
+        50% {
+            transform:
+                translate3d(-50vw, 40px, 150px)
+                rotateY(180deg)
+                rotateZ(8deg);
+        }
+
+        75% {
+            transform:
+                translate3d(-75vw, -30px, 80px)
+                rotateY(180deg)
+                rotateZ(-5deg);
+        }
+
+        100% {
+            right: 110%;
+
+            transform:
+                translate3d(0, 0, 0)
+                rotateY(180deg);
+        }
+    }
+
+
+    /* =========================
+       RABBIT
+       ========================= */
+
+    .pet-rabbit {
+
+        bottom: 12%;
+
+        left: -90px;
+
+        font-size: 50px;
+
+        animation:
+            rabbitMove 20s linear infinite;
+
+        animation-delay: 5s;
+    }
+
+
+    @keyframes rabbitMove {
+
+        0% {
+            left: -90px;
+
+            transform:
+                translateZ(0)
+                rotateY(0deg)
+                scale(1);
+        }
+
+        35% {
+            transform:
+                translateZ(60px)
+                rotateY(10deg)
+                scale(1.08);
+        }
+
+        50% {
+            left: 45%;
+
+            transform:
+                translateZ(90px)
+                rotateY(0deg)
+                scale(1.12);
+        }
+
+        100% {
+            left: 110%;
+
+            transform:
+                translateZ(0)
+                rotateY(0deg)
+                scale(1);
+        }
+    }
+
+
+    /* =========================
+       PET FLOAT
+       ========================= */
+
+    @keyframes petFloat {
+
+        0%,
+        100% {
+            margin-top: 0;
+        }
+
+        50% {
+            margin-top: -10px;
+        }
+    }
+
+
+    @keyframes birdFloat {
+
+        0%,
+        100% {
+            margin-top: 0;
+        }
+
+        50% {
+            margin-top: -14px;
+        }
+    }
+
+
+    /* =========================
+       LOGIN CARD
+       ========================= */
+
+    .login-card {
+
+        position: relative;
+
+        z-index: 10;
+
+        width: 100%;
+
+        max-width: 430px;
+
+        padding: 40px;
+
+        background: rgba(255, 255, 255, 0.94);
+
+        backdrop-filter: blur(14px);
+
+        -webkit-backdrop-filter: blur(14px);
+
+        border-radius: 24px;
+
+        border: 1px solid rgba(255, 255, 255, 0.8);
+
+        box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.14);
+    }
+
+
+    /* =========================
+       LOGO
+       ========================= */
+
+    .login-logo {
+
+        width: 80px;
+
+        height: 80px;
+
+        margin: 0 auto 18px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 50%;
+
+        font-size: 45px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #0d6efd,
+                #084298
+            );
+
+        box-shadow:
+            0 12px 30px rgba(13, 110, 253, 0.28);
+    }
+
+
+    .login-title {
+
+        text-align: center;
+
+        font-size: 30px;
+
+        font-weight: 800;
+
+        margin-bottom: 6px;
+
+        color: #212529;
+    }
+
+
+    .login-subtitle {
+
+        text-align: center;
+
+        color: #6c757d;
+
+        font-size: 14px;
+
+        margin-bottom: 30px;
+    }
+
+
+    /* =========================
+       FORM
+       ========================= */
+
+    .form-group {
+
+        margin-bottom: 20px;
+    }
+
+
+    .form-label {
+
+        display: block;
+
+        font-size: 14px;
+
+        font-weight: 650;
+
+        margin-bottom: 7px;
+
+        color: #343a40;
+    }
+
+
+    .form-control {
+
+        width: 100%;
+
+        height: 48px;
+
+        padding: 10px 14px;
+
+        border-radius: 11px;
+
+        border: 1px solid #dce1e7;
+
+        font-size: 14px;
+
+        transition: 0.2s ease;
+    }
+
+
+    .form-control:focus {
+
+        outline: none;
+
+        border-color: #0d6efd;
+
+        box-shadow:
+            0 0 0 4px
+            rgba(13, 110, 253, 0.10);
+    }
+
+
+    /* =========================
+       LOGIN BUTTON
+       ========================= */
+
+    .login-btn {
+
+        width: 100%;
+
+        height: 50px;
+
+        border: none;
+
+        border-radius: 11px;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        transition: 0.25s ease;
+    }
+
+
+    .login-btn:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 10px 25px
+            rgba(13, 110, 253, 0.25);
+    }
+
+
+    /* =========================
+       ERROR
+       ========================= */
+
+    .login-error {
+
+        border-radius: 10px;
+
+        font-size: 13px;
+
+        margin-bottom: 20px;
+    }
+
+
+    /* =========================
+       REGISTER
+       ========================= */
+
+    .register-section {
+
+        text-align: center;
+
+        margin-top: 24px;
+
+        padding-top: 20px;
+
+        border-top: 1px solid #eeeeee;
+
+        font-size: 14px;
+    }
+
+
+    .register-link {
+
+        color: #0d6efd;
+
+        font-weight: 700;
+
+        text-decoration: none;
+
+        margin-left: 5px;
+    }
+
+
+    .register-link:hover {
+
+        text-decoration: underline;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 767px) {
+
+        .login-page {
+
+            padding: 25px 15px;
+        }
+
+
+        .login-card {
+
+            padding: 30px 25px;
+
+            border-radius: 20px;
+        }
+
+
+        .login-title {
+
+            font-size: 26px;
+        }
+
+
+        .animated-pet {
+
+            font-size: 40px;
+        }
+
+    }
+
+
+    /* =========================
+       REDUCED MOTION
+       ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+        .animated-pet {
+
+            animation: none !important;
+        }
+
+    }
+
+</style>
+
+<div class="login-page">
+
+```
+<!-- =================================
+     ANIMATED PETS
+     ================================= -->
+
+<div class="pet-animation-area">
+
+    <div class="animated-pet pet-dog">
+        🐕
+    </div>
+
+    <div class="animated-pet pet-cat">
+        🐈
+    </div>
+
+    <div class="animated-pet pet-bird">
+        🐦
+    </div>
+
+    <div class="animated-pet pet-rabbit">
+        🐇
+    </div>
+
+</div>
+
+
+<!-- =================================
+     LOGIN CARD
+     ================================= -->
+
+<div class="login-card">
+
+
+    <div class="login-logo">
+        🐾
+    </div>
+
+
+    <h1 class="login-title">
+        Welcome Back
+    </h1>
+
+
+    <p class="login-subtitle">
+        Login to manage your pets with PetSafe QR
+    </p>
+
+
+    {% if error %}
+
+        <div
+            class="alert alert-danger login-error"
+        >
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <button
+            type="submit"
+            class="btn btn-primary login-btn"
+        >
+            🔐 Login
+        </button>
+
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <div class="register-section">
+
+        <span class="text-muted">
+            Don't have an account?
+        </span>
+
+        <a
+            href="{% url 'register' %}"
+            class="register-link"
+        >
+            Create Account
+        </a>
+
+    </div>
+
+
+</div>
+```
+
+</div>
+
+{% endblock %}

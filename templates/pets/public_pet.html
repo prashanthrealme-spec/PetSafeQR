@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ pet.name }} - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<div class="row justify-content-center">
+
+    <div class="col-md-7 col-lg-6">
+
+        <!-- Header -->
+
+        <div class="text-center mb-4">
+
+            <div style="font-size: 55px;">
+                🐾
+            </div>
+
+            <h2 class="fw-bold">
+                PetSafe QR
+            </h2>
+
+            <p class="text-muted">
+                Pet Identification & Recovery System
+            </p>
+
+        </div>
+
+
+        <!-- Pet Card -->
+
+        <div class="card shadow-lg border-0 overflow-hidden">
+
+
+            <!-- Pet Photo -->
+
+            {% if pet.photo %}
+
+                <img
+                    src="{{ pet.photo.url }}"
+                    alt="{{ pet.name }}"
+                    style="
+                        width: 100%;
+                        height: 300px;
+                        object-fit: cover;
+                    "
+                >
+
+            {% else %}
+
+                <div
+                    class="bg-light d-flex
+                           justify-content-center
+                           align-items-center"
+                    style="
+                        height: 300px;
+                        font-size: 100px;
+                    "
+                >
+                    🐾
+                </div>
+
+            {% endif %}
+
+
+            <div class="card-body p-4">
+
+
+                <!-- Pet Name -->
+
+                <div class="text-center mb-4">
+
+                    <h1 class="fw-bold">
+                        {{ pet.name }}
+                    </h1>
+
+
+                    {% if pet.status == 'MISSING' %}
+
+                        <span class="badge bg-danger fs-6 px-3 py-2">
+                            🚨 PET IS MISSING
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-success fs-6 px-3 py-2">
+                            🟢 PET IS SAFE
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Pet Information -->
+
+                <h5 class="fw-bold mb-3">
+                    🐾 Pet Details
+                </h5>
+
+
+                <div class="list-group mb-4">
+
+                    <div class="list-group-item
+                                d-flex
+                                justify-content-between">
+
+                        <span>Pet Type</span>
+
+                        <strong>
+                            {{ pet.get_pet_type_display }}
+                        </strong>
+
+                    </div>
+
+
+                    {% if pet.breed %}
+
+                        <div class="list-group-item
+                                    d-flex
+                                    justify-content-between">
+
+                            <span>Breed</span>
+
+                            <strong>
+                                {{ pet.breed }}
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="list-group-item
+                                d-flex
+                                justify-content-between">
+
+                        <span>Gender</span>
+
+                        <strong>
+                            {{ pet.get_gender_display }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="list-group-item
+                                d-flex
+                                justify-content-between">
+
+                        <span>Color</span>
+
+                        <strong>
+                            {{ pet.color }}
+                        </strong>
+
+                    </div>
+
+
+                    {% if pet.identification_details %}
+
+                        <div class="list-group-item">
+
+                            <strong>
+                                🔎 Identification
+                            </strong>
+
+                            <p class="mb-0 mt-2 text-muted">
+                                {{ pet.identification_details }}
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- MISSING PET -->
+
+                {% if pet.status == 'MISSING' %}
+
+                    <div class="alert alert-danger">
+
+                        <h5 class="fw-bold">
+                            🚨 This pet has been reported missing
+                        </h5>
+
+                        <p class="mb-0">
+                            If you have found this pet,
+                            please contact the owner using
+                            the information below.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Owner Information -->
+
+                    <div class="card border-danger mb-3">
+
+                        <div class="card-body">
+
+                            <h5 class="fw-bold mb-3">
+                                👤 Owner Contact
+                            </h5>
+
+
+                            <p class="mb-2">
+
+                                <strong>
+                                    Name:
+                                </strong>
+
+                                {{ pet.owner.get_full_name|default:pet.owner.username }}
+
+                            </p>
+
+
+                            <p class="mb-3">
+
+                                <strong>
+                                    📍 Area:
+                                </strong>
+
+                                {{ pet.owner.ownerprofile.area }}
+
+                            </p>
+
+
+                            <a
+                                href="tel:{{ pet.owner.ownerprofile.phone }}"
+                                class="btn btn-danger w-100"
+                            >
+                                📞 Call Owner
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                {% else %}
+
+                    <!-- SAFE -->
+
+                    <div class="alert alert-success text-center">
+
+                        <h5 class="fw-bold">
+                            🟢 This pet is safe
+                        </h5>
+
+                        <p class="mb-0">
+                            The owner has not reported this
+                            pet as missing.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="text-center mt-4">
+
+            <p class="text-muted small mb-0">
+                Powered by PetSafe QR 🐾
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% endblock %}

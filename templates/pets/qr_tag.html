@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}
+QR Tag - {{ pet.name }} - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<div class="text-center mb-4">
+
+    <h2 class="fw-bold">
+        📱 PetSafe QR Tag
+    </h2>
+
+    <p class="text-muted">
+        Print this QR code and attach it to {{ pet.name }}'s collar.
+    </p>
+
+</div>
+
+
+<div class="row justify-content-center">
+
+    <div class="col-md-5 col-lg-4">
+
+        <!-- QR TAG -->
+
+        <div
+            id="qrTag"
+            class="card shadow-lg border-0 text-center"
+        >
+
+            <div class="card-body p-4">
+
+
+                <div style="font-size: 35px;">
+                    🐾
+                </div>
+
+                <h3 class="fw-bold">
+                    PetSafe QR
+                </h3>
+
+                <p class="text-muted small">
+                    Smart Pet Identification
+                </p>
+
+
+                <!-- QR -->
+
+                <div class="my-4">
+
+                    <img
+                        src="data:image/png;base64,{{ qr_code }}"
+                        alt="PetSafe QR Code"
+                        style="
+                            width: 220px;
+                            height: 220px;
+                        "
+                    >
+
+                </div>
+
+
+                <!-- Pet -->
+
+                <h2 class="fw-bold">
+                    {{ pet.name }}
+                </h2>
+
+
+                <p class="text-muted mb-3">
+
+                    {{ pet.get_pet_type_display }}
+
+                    {% if pet.breed %}
+                        • {{ pet.breed }}
+                    {% endif %}
+
+                </p>
+
+
+                <div
+                    class="border rounded p-3 mb-3"
+                >
+
+                    <strong>
+                        📱 Scan this QR code
+                    </strong>
+
+                    <p class="small text-muted mb-0 mt-2">
+                        If this pet is found, scan the QR
+                        code to check the pet's information.
+                    </p>
+
+                </div>
+
+
+                <p class="small text-muted mb-0">
+                    Powered by PetSafe QR 🐾
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="d-flex gap-2 mt-4">
+
+            <a
+                href="{% url 'pet_detail' pet.pet_id %}"
+                class="btn btn-secondary w-50"
+            >
+                ← Back
+            </a>
+
+            <button
+                onclick="window.print()"
+                class="btn btn-primary w-50"
+            >
+                🖨️ Print
+            </button>
+
+        </div>
+
+
+        <a
+            href="{% url 'download_qr' pet.pet_id %}"
+            class="btn btn-outline-success w-100 mt-2"
+        >
+            ⬇️ Download QR
+        </a>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<style>
+
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+    #qrTag,
+    #qrTag * {
+        visibility: visible;
+    }
+
+    #qrTag {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        transform: translateX(-50%);
+        width: 320px;
+        box-shadow: none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}

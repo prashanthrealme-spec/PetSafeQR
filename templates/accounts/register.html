@@ -1,0 +1,790 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Account - PetSafe QR
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .register-page {
+        min-height: calc(100vh - 70px);
+        padding: 45px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(13, 110, 253, 0.10),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at bottom right,
+                rgba(25, 135, 84, 0.10),
+                transparent 35%
+            ),
+            #f5f7fb;
+    }
+
+
+    /* MAIN CARD */
+
+    .register-card {
+        width: 100%;
+        max-width: 1000px;
+
+        background: #ffffff;
+
+        border-radius: 24px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* LEFT PANEL */
+
+    .register-left {
+        height: 100%;
+
+        min-height: 650px;
+
+        padding: 50px 40px;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+        color: #ffffff;
+
+        background:
+            linear-gradient(
+                145deg,
+                #0d6efd,
+                #063b91
+            );
+    }
+
+
+    .paw-icon {
+        width: 100px;
+        height: 100px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 50%;
+
+        font-size: 55px;
+
+        background: rgba(255, 255, 255, 0.15);
+
+        margin-bottom: 25px;
+    }
+
+
+    .brand-title {
+        font-size: 34px;
+        font-weight: 800;
+
+        margin-bottom: 10px;
+    }
+
+
+    .brand-description {
+        max-width: 300px;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+
+        opacity: 0.9;
+
+        margin-bottom: 25px;
+    }
+
+
+    /* FEATURES */
+
+    .feature-list {
+        width: 100%;
+        max-width: 300px;
+
+        margin-top: 10px;
+    }
+
+
+    .feature-item {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 13px 15px;
+
+        margin-bottom: 10px;
+
+        border-radius: 12px;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        text-align: left;
+
+        font-size: 14px;
+    }
+
+
+    .feature-icon {
+        width: 32px;
+        height: 32px;
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        flex-shrink: 0;
+
+        border-radius: 8px;
+
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+
+    /* RIGHT PANEL */
+
+    .register-right {
+        padding: 45px 50px;
+    }
+
+
+    .register-heading {
+        font-size: 29px;
+
+        font-weight: 800;
+
+        color: #212529;
+
+        margin-bottom: 6px;
+    }
+
+
+    .register-subtitle {
+        color: #6c757d;
+
+        font-size: 14px;
+
+        margin-bottom: 30px;
+    }
+
+
+    /* FORM */
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+
+    .form-label {
+        display: block;
+
+        font-size: 14px;
+
+        font-weight: 650;
+
+        color: #343a40;
+
+        margin-bottom: 7px;
+    }
+
+
+    .form-control,
+    .form-select {
+        width: 100%;
+
+        min-height: 46px;
+
+        padding: 10px 13px;
+
+        border: 1px solid #dce1e7;
+
+        border-radius: 10px;
+
+        background: #ffffff;
+
+        font-size: 14px;
+
+        transition: all 0.2s ease;
+    }
+
+
+    .form-control:focus,
+    .form-select:focus {
+
+        border-color: #0d6efd;
+
+        box-shadow:
+            0 0 0 4px rgba(13, 110, 253, 0.10);
+
+        outline: none;
+    }
+
+
+    /* ERRORS */
+
+    .field-error {
+        color: #dc3545;
+
+        font-size: 12px;
+
+        margin-top: 5px;
+    }
+
+
+    .error-box {
+        border-radius: 10px;
+
+        font-size: 13px;
+
+        margin-bottom: 20px;
+    }
+
+
+    /* BUTTON */
+
+    .register-btn {
+
+        width: 100%;
+
+        min-height: 48px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        font-size: 15px;
+
+        font-weight: 700;
+
+        transition: all 0.2s ease;
+    }
+
+
+    .register-btn:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 8px 20px rgba(13, 110, 253, 0.25);
+    }
+
+
+    /* LOGIN */
+
+    .login-section {
+
+        text-align: center;
+
+        margin-top: 22px;
+
+        padding-top: 18px;
+
+        border-top: 1px solid #eeeeee;
+
+        font-size: 14px;
+    }
+
+
+    .login-link {
+
+        color: #0d6efd;
+
+        font-weight: 700;
+
+        text-decoration: none;
+
+        margin-left: 5px;
+    }
+
+
+    .login-link:hover {
+
+        text-decoration: underline;
+    }
+
+
+    /* PASSWORD HELP */
+
+    .help-text {
+
+        display: block;
+
+        color: #6c757d;
+
+        font-size: 11px;
+
+        line-height: 1.5;
+
+        margin-top: 5px;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 767px) {
+
+        .register-page {
+
+            padding: 20px 12px;
+
+            align-items: flex-start;
+        }
+
+
+        .register-card {
+
+            border-radius: 18px;
+        }
+
+
+        .register-left {
+
+            min-height: auto;
+
+            padding: 35px 25px;
+        }
+
+
+        .paw-icon {
+
+            width: 75px;
+            height: 75px;
+
+            font-size: 42px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .brand-title {
+
+            font-size: 27px;
+        }
+
+
+        .feature-list {
+
+            max-width: 100%;
+        }
+
+
+        .register-right {
+
+            padding: 35px 25px;
+        }
+
+
+        .register-heading {
+
+            font-size: 25px;
+        }
+
+    }
+
+</style>
+
+<div class="register-page">
+
+```
+<div class="register-card">
+
+    <div class="row g-0">
+
+
+        <!-- ================================= -->
+        <!-- LEFT SIDE -->
+        <!-- ================================= -->
+
+        <div class="col-md-5">
+
+            <div class="register-left">
+
+
+                <div class="paw-icon">
+                    🐾
+                </div>
+
+
+                <h1 class="brand-title">
+                    PetSafe QR
+                </h1>
+
+
+                <p class="brand-description">
+                    Smart Pet Identification &
+                    Recovery System
+                </p>
+
+
+                <div class="feature-list">
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            🐕
+                        </div>
+
+                        <span>
+                            Register all your pets
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            📱
+                        </div>
+
+                        <span>
+                            Get a unique QR code
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            🔐
+                        </div>
+
+                        <span>
+                            Keep owner details private
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            🚨
+                        </div>
+
+                        <span>
+                            Report your pet as missing
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            📞
+                        </div>
+
+                        <span>
+                            Help find your pet quickly
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- RIGHT SIDE -->
+        <!-- ================================= -->
+
+        <div class="col-md-7">
+
+            <div class="register-right">
+
+
+                <h2 class="register-heading">
+                    Create Your Account
+                </h2>
+
+
+                <p class="register-subtitle">
+                    Create your PetSafe QR account
+                    and start protecting your pets.
+                </p>
+
+
+                <!-- NON FIELD ERRORS -->
+
+                {% if form.non_field_errors %}
+
+                    <div class="alert alert-danger error-box">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+                <form
+                    method="POST"
+                    novalidate
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- USERNAME -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Username
+                        </label>
+
+                        {{ form.username }}
+
+                        {% for error in form.username.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- FIRST + LAST NAME -->
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    First Name
+                                </label>
+
+                                {{ form.first_name }}
+
+                                {% for error in form.first_name.errors %}
+
+                                    <div class="field-error">
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    Last Name
+                                </label>
+
+                                {{ form.last_name }}
+
+                                {% for error in form.last_name.errors %}
+
+                                    <div class="field-error">
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Email Address
+                        </label>
+
+                        {{ form.email }}
+
+                        {% for error in form.email.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- PHONE + AREA -->
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    📞 Phone Number
+                                </label>
+
+                                {{ form.phone }}
+
+                                {% for error in form.phone.errors %}
+
+                                    <div class="field-error">
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label class="form-label">
+                                    📍 Area
+                                </label>
+
+                                {{ form.area }}
+
+                                {% for error in form.area.errors %}
+
+                                    <div class="field-error">
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        {{ form.password1 }}
+
+                        {% for error in form.password1.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Confirm Password
+                        </label>
+
+                        {{ form.password2 }}
+
+                        {% for error in form.password2.errors %}
+
+                            <div class="field-error">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary register-btn"
+                    >
+                        🐾 Create PetSafe Account
+                    </button>
+
+
+                </form>
+
+
+                <!-- LOGIN -->
+
+                <div class="login-section">
+
+                    <span class="text-muted">
+                        Already have an account?
+                    </span>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="login-link"
+                    >
+                        Login
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% endblock %}
