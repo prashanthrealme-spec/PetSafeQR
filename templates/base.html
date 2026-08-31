@@ -3,36 +3,59 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+```
+<meta charset="UTF-8">
 
-<title>{% block title %}PetSafe QR{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>
+    {% block title %}
+    PetSafe QR
+    {% endblock %}
+</title>
+
+<!-- Bootstrap CSS -->
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
 >
 
+<!-- PetSafeQR CSS -->
 <link
     rel="stylesheet"
     href="{% static 'css/style.css' %}"
 >
 
+{% block extra_css %}
+{% endblock %}
+```
+
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-    <div class="container">
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
-    <!-- Logo / Brand -->
-    <a class="navbar-brand fw-bold" href="/">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+
+```
+<div class="container">
+
+    <!-- BRAND -->
+    <a
+        class="navbar-brand fw-bold"
+        href="{% url 'home' %}"
+    >
         🐾 PetSafe QR
     </a>
 
-    <!-- Mobile Toggle Button -->
+
+    <!-- MOBILE MENU BUTTON -->
     <button
         class="navbar-toggler"
         type="button"
@@ -42,143 +65,223 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
     >
+
         <span class="navbar-toggler-icon"></span>
+
     </button>
 
-    <!-- Navbar Items -->
-    <div class="collapse navbar-collapse" id="navbarNav">
 
-        <ul class="navbar-nav ms-auto">
+    <!-- NAVIGATION -->
+    <div
+        class="collapse navbar-collapse"
+        id="navbarNav"
+    >
 
-            <!-- Home -->
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+            <!-- HOME -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
-                    Home
+
+                <a
+                    class="nav-link"
+                    href="{% url 'home' %}"
+                >
+                    🏠 Home
                 </a>
+
             </li>
 
-            <!-- How It Works -->
+
+            <!-- HOW IT WORKS -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    How It Works
+
+                <a
+                    class="nav-link"
+                    href="{% url 'home' %}#how-it-works"
+                >
+                    ⚙️ How It Works
                 </a>
+
             </li>
 
-            <!-- About -->
+
+            <!-- ABOUT -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    About
+
+                <a
+                    class="nav-link"
+                    href="{% url 'home' %}#about"
+                >
+                    ℹ️ About
                 </a>
+
             </li>
 
 
             {% if user.is_authenticated %}
 
-                <!-- Dashboard -->
+                <!-- DASHBOARD -->
                 <li class="nav-item">
+
                     <a
                         class="nav-link"
                         href="{% url 'dashboard' %}"
                     >
                         🏠 Dashboard
                     </a>
+
                 </li>
 
-                <!-- Profile -->
+
+                <!-- PROFILE -->
                 <li class="nav-item">
+
                     <a
                         class="nav-link"
                         href="{% url 'profile' %}"
                     >
                         👤 Profile
                     </a>
+
                 </li>
 
-                <!-- Logout -->
-                <li class="nav-item">
+
+                <!-- LOGOUT -->
+                <li class="nav-item ms-lg-2">
+
                     <a
-                        class="btn btn-danger ms-lg-2"
+                        class="btn btn-danger"
                         href="{% url 'logout' %}"
                     >
                         🚪 Logout
                     </a>
+
                 </li>
+
 
             {% else %}
 
-                <!-- Login -->
-                <li class="nav-item">
+
+                <!-- LOGIN -->
+                <li class="nav-item ms-lg-2">
+
                     <a
-                        class="btn btn-light ms-lg-2"
+                        class="btn btn-light"
                         href="{% url 'login' %}"
                     >
                         🔐 Login
                     </a>
+
                 </li>
 
-                <!-- Register -->
-                <li class="nav-item">
+
+                <!-- REGISTER -->
+                <li class="nav-item ms-lg-2">
+
                     <a
-                        class="btn btn-primary ms-lg-2"
+                        class="btn btn-primary"
                         href="{% url 'register' %}"
                     >
                         📝 Register
                     </a>
+
                 </li>
 
             {% endif %}
 
+
         </ul>
 
     </div>
+
 </div>
+```
 
 </nav>
 
-<!-- Main Content -->
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
 
 <main>
 
-
+```
 {% block content %}
 {% endblock %}
+```
 
 </main>
 
-<!-- Footer -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-<footer class="bg-dark text-white text-center py-3 mt-5">
+<footer class="bg-dark text-white text-center py-4 mt-5">
 
-<div class="petsafe-bottom">
+```
+<div class="container">
 
-<div class="petsafe-tagline">
-    🐾 PetSafe QR — Smart Pet Identification & Recovery System
+    <div class="petsafe-bottom">
+
+
+        <!-- TAGLINE -->
+        <div class="petsafe-tagline mb-2">
+
+            🐾 PetSafe QR — Smart Pet Identification & Recovery System
+
+        </div>
+
+
+        <!-- CREDIT -->
+        <div class="petsafe-credit mb-2">
+
+            Designed by
+            <strong>Prashanth</strong>
+            ❤️
+
+            <br>
+
+            with the help of
+            <strong>ChatGPT</strong>
+
+        </div>
+
+
+        <!-- BRAND -->
+        <div class="petsafe-name fw-bold fs-5 mb-2">
+
+            🐾 PetSafeQR
+
+        </div>
+
+
+        <!-- COPYRIGHT -->
+        <div class="petsafe-copyright small">
+
+            © 2026 PetSafeQR. All rights reserved.
+
+        </div>
+
+
+    </div>
+
 </div>
-
-<div class="petsafe-credit">
-    Designed by <strong>Prashanth</strong> ❤️
-    <br>
-    with the help of <strong>ChatGPT</strong>
-</div>
-
-<div class="petsafe-name">
-    🐾 PetSafeQR
-</div>
-
-<div class="petsafe-copyright">
-    © 2026 PetSafeQR. All rights reserved.
-</div>
-
-
-</div>
-
-
+```
 
 </footer>
 
-<!-- Bootstrap JS -->
+<!-- =========================================================
+     BOOTSTRAP JAVASCRIPT
+========================================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+{% block extra_js %}
+{% endblock %}
 
 </body>
+
 </html>
