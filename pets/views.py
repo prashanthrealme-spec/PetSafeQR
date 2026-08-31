@@ -17,13 +17,7 @@ from io import BytesIO
 # ---------------------------------------
 
 def home(request):
-    try:
-        return render(request, 'pets/home.html')
-    except Exception as e:
-        return HttpResponse(
-            f"<h1>ERROR</h1><pre>{type(e).__name__}: {e}</pre>",
-            status=500
-        )
+    return HttpResponse("PetSafeQR is working on Render!")
 
 
 # ---------------------------------------
