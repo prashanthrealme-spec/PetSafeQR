@@ -15,10 +15,11 @@ from io import BytesIO
 # ---------------------------------------
 # HOME
 # ---------------------------------------
-
 def home(request):
-    return HttpResponse("PetSafeQR is working on Render!")
-
+    return render(
+        request,
+        'pets/home.html'
+    )
 
 # ---------------------------------------
 # DASHBOARD
