@@ -19,8 +19,8 @@ SECRET_KEY = os.environ.get(
 )
 
 #DEBUG = os.environ.get("DEBUG", "False") == "True"
-DEBUG = True
-
+#DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = ["*"]
 
 
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    # WhiteNoise
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -148,6 +147,12 @@ USE_TZ = True
 # ============================================================
 # STATIC FILES
 # ============================================================
+# ============================================================
+# STATIC FILES
+# ============================================================
+# ============================================================
+# STATIC FILES
+# ============================================================
 
 STATIC_URL = '/static/'
 
@@ -157,13 +162,13 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# WhiteNoise compressed static files
+# WhiteNoise
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 
