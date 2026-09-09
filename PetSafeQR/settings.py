@@ -4,11 +4,14 @@ Django settings for PetSafeQR project.
 
 from pathlib import Path
 import os
-
+import cloudinary
+import cloudinary_storage
+from dotenv import load_dotenv
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv(BASE_DIR / '.env')
 # ============================================================
 # SECURITY
 # ============================================================
@@ -17,6 +20,11 @@ SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-development-only-key"
 )
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
 
 #DEBUG = os.environ.get("DEBUG", "False") == "True"
 #DEBUG = True
@@ -39,6 +47,8 @@ INSTALLED_APPS = [
 
     'accounts',
     'pets',
+    'cloudinary',
+    'cloudinary_storage',
 
     'whitenoise.runserver_nostatic',
 ]
@@ -163,7 +173,7 @@ STATICFILES_DIRS = [
 # WhiteNoise
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
