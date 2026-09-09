@@ -21,6 +21,7 @@ SECRET_KEY = os.environ.get(
 #DEBUG = os.environ.get("DEBUG", "False") == "True"
 #DEBUG = True
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+#DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
@@ -124,10 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME':
         'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
-    {
-        'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
 ]
 
 
@@ -157,6 +154,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',

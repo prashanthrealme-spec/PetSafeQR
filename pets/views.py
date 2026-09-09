@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 from .models import Pet
 from .forms import PetForm
-
+from accounts.models import OwnerProfile
 import qrcode
 import base64
 from django.urls import reverse
